@@ -26,8 +26,6 @@
     "extract_pitch": false,
     "extract_uv": false,
     "extract_audio": true,
-    "extract_label": false,
-    "extract_one_hot": false,
     "extract_amplitude_phase": false,
     "pitch_extractor": "parselmouth",
     // Settings for data preprocessing
@@ -43,7 +41,7 @@
     "pitch_bin": 256,
     "pitch_max": 1100.0,
     "pitch_min": 50.0,
-    "is_mu_law": false,
+    "audio_mode": "",
     "bits": 8,
     "cut_mel_frame": 32,
     // Directory names of processed data or extracted features
@@ -53,8 +51,6 @@
     "use_frame_pitch": false,
     "use_uv": false,
     "use_audio": true,
-    "use_label": false,
-    "use_one_hot": false,
     "train_file": "train.json",
     "valid_file": "test.json"
   },
