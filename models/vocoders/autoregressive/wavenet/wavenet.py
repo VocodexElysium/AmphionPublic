@@ -3,6 +3,9 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+# This model code is adopted under the MIT License
+# https://github.com/r9y9/wavenet_vocoder
+
 import math
 
 from torch import nn
@@ -63,18 +66,18 @@ class WaveNet(nn.Module):
     def __init__(self, cfg):
         super(WaveNet, self).__init__()
         self.cfg = cfg
-        self.scalar_input = self.cfg.VOCODER.SCALAR_INPUT
-        self.out_channels = self.cfg.VOCODER.OUT_CHANNELS
-        self.cin_channels = self.cfg.VOCODER.INPUT_DIM
-        self.residual_channels = self.cfg.VOCODER.RESIDUAL_CHANNELS
-        self.layers = self.cfg.VOCODER.LAYERS
-        self.stacks = self.cfg.VOCODER.STACKS
-        self.gate_channels = self.cfg.VOCODER.GATE_CHANNELS
-        self.kernel_size = self.cfg.VOCODER.KERNEL_SIZE
-        self.skip_out_channels = self.cfg.VOCODER.SKIP_OUT_CHANNELS
-        self.dropout = self.cfg.VOCODER.DROPOUT
-        self.upsample_scales = self.cfg.VOCODER.UPSAMPLE_SCALES
-        self.mel_frame_pad = self.cfg.VOCODER.MEL_FRAME_PAD
+        self.scalar_input = self.cfg.model.wavenet.scalar_input
+        self.out_channels = self.cfg.model.wavenet.out_channels
+        self.cin_channels = self.cfg.preprocess.n_mel
+        self.residual_channels = self.cfg.model.wavenet.residual_channels
+        self.layers = self.cfg.model.wavenet.layers
+        self.stacks = self.cfg.model.wavenet.stacks
+        self.gate_channels = self.cfg.model.wavenet.gate_channels
+        self.kernel_size = self.cfg.model.wavenet.kernel_size
+        self.skip_out_channels = self.cfg.model.wavenet.skip_out_channels
+        self.dropout = self.cfg.model.wavenet.dropout
+        self.upsample_scales = self.cfg.model.wavenet.upsample_scales
+        self.mel_frame_pad = self.cfg.preprocess.mel_frame_pad
 
         assert self.layers % self.stacks == 0
 

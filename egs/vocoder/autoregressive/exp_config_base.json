@@ -52,7 +52,8 @@
     // TODO: Fill in the output data path
     "processed_dir": "data/",
     "n_mel": 100,
-    "sample_rate": 24000
+    "sample_rate": 24000,
+    "audio_mode": "", // "mu_law", "mu_law_quantized", "mu_law_one_hot", "" for raw audio
   },
   "train": {
     // TODO: Choose a suitable batch size, training epoch, and save stride

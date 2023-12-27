@@ -88,10 +88,10 @@ def label_to_onehot(x, bits):
     """
     classes = 2**bits
 
-    result = torch.zeros((x.shape[0], classes), dtype=torch.float32)
+    result = np.zeros((x.shape[0], classes))
     for i in range(x.shape[0]):
         result[i, x[i]] = 1
 
     output_shape = x.shape + (classes,)
-    output = torch.reshape(result, output_shape)
+    output = np.reshape(result, output_shape)
     return output

@@ -41,8 +41,9 @@
     "pitch_bin": 256,
     "pitch_max": 1100.0,
     "pitch_min": 50.0,
-    "audio_mode": "",
-    "bits": 8,
+    "audio_mode": "", // "mu_law", "mu_law_quantize", "mu_law_one_hot", "mu_law_quantize_one_hot", "" for raw audio
+    "bits": 16,
+    "mel_frame_pad": 2,
     "cut_mel_frame": 32,
     // Directory names of processed data or extracted features
     "spk2id": "singers.json",

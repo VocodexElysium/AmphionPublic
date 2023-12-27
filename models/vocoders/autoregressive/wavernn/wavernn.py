@@ -3,6 +3,9 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+# This model code is adopted under the MIT License
+# https://github.com/fatchord/WaveRNN
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -100,24 +103,26 @@ class WaveRNN(nn.Module):
         super().__init__()
 
         self.cfg = cfg
-        self.pad = self.cfg.VOCODER.MEL_FRAME_PAD
+        self.pad = self.cfg.preprocess.mel_frame_pad
 
-        if self.cfg.VOCODER.MODE == "mu_law_quantize":
-            self.n_classes = 2**self.cfg.VOCODER.BITS
-        elif self.cfg.VOCODER.MODE == "mu_law" or self.cfg.VOCODER:
+        if self.cfg.preprocess.audio_mode == "mu_law_quantize":
+            self.n_classes = 2**self.cfg.preprocess.bits
+        elif self.cfg.preprocess.audio_mode == "mu_law" or self.cfg.preprocess.audio_mode == "":
             self.n_classes = 30
+        else:
+            raise NotImplementedError
 
         self._to_flatten = []
 
-        self.rnn_dims = self.cfg.VOCODER.RNN_DIMS
-        self.aux_dims = self.cfg.VOCODER.RES_OUT_DIMS // 4
-        self.hop_length = self.cfg.VOCODER.HOP_LENGTH
-        self.fc_dims = self.cfg.VOCODER.FC_DIMS
-        self.upsample_factors = self.cfg.VOCODER.UPSAMPLE_FACTORS
-        self.feat_dims = self.cfg.VOCODER.INPUT_DIM
-        self.compute_dims = self.cfg.VOCODER.COMPUTE_DIMS
-        self.res_out_dims = self.cfg.VOCODER.RES_OUT_DIMS
-        self.res_blocks = self.cfg.VOCODER.RES_BLOCKS
+        self.rnn_dims = self.cfg.model.wavernn.rnn_dims
+        self.aux_dims = self.cfg.model.wavernn.res_out_dims // 4
+        self.hop_length = self.cfg.model.wavernn.hop_length
+        self.fc_dims = self.cfg.model.wavernn.fc_dims
+        self.upsample_factors = self.cfg.model.wavernn.upsample_factors
+        self.feat_dims = self.cfg.preprocess.n_mel
+        self.compute_dims = self.cfg.model.wavernn.compute_dims
+        self.res_out_dims = self.cfg.model.wavernn.res_out_dims
+        self.res_blocks = self.cfg.model.wavernn.res_blocks
 
         self.upsample = UpsampleNetwork(
             self.feat_dims,
