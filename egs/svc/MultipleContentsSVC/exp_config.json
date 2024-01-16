@@ -2,11 +2,11 @@
     "base_config": "config/diffusion.json",
     "model_type": "DiffWaveNetSVC",
     "dataset": [
-        "m4singer",
+        // "m4singer",
         "opencpop",
-        "opensinger",
-        "svcc",
-        "vctk"
+        // "opensinger",
+        // "svcc",
+        // "vctk"
     ],
     "dataset_path": {
         // TODO: Fill in your dataset path
@@ -20,14 +20,14 @@
     "log_dir": "ckpts/svc",
     "preprocess": {
         // TODO: Fill in the output data path. The default value is "Amphion/data"
-        "processed_dir": "data",
+        "processed_dir": "/nvme/uniamphion/svc",
         // Config for features extraction
         "extract_mel": true,
-        "extract_pitch": true,
-        "extract_energy": true,
+        "extract_pitch": false,
+        "extract_energy": false,
         "extract_whisper_feature": true,
         "extract_contentvec_feature": true,
-        "extract_wenet_feature": false,
+        "extract_wenet_feature": true,
         "whisper_batch_size": 30, // decrease it if your GPU is out of memory
         "contentvec_batch_size": 1,
         // Fill in the content-based pretrained model's path
@@ -39,12 +39,12 @@
         // Config for features usage
         "use_mel": true,
         "use_min_max_norm_mel": true,
-        "use_frame_pitch": true,
-        "use_frame_energy": true,
+        "use_frame_pitch": false,
+        "use_frame_energy": false,
         "use_spkid": true,
         "use_whisper": true,
-        "use_contentvec": true,
-        "use_wenet": false,
+        "use_contentvec": false,
+        "use_wenet": true,
         "n_mel": 100,
         "sample_rate": 24000
     },
@@ -52,8 +52,8 @@
         "condition_encoder": {
             // Config for features usage
             "use_whisper": true,
-            "use_contentvec": true,
-            "use_wenet": false,
+            "use_contentvec": false,
+            "use_wenet": true,
             "whisper_dim": 1024,
             "contentvec_dim": 256,
             "wenet_dim": 512,
@@ -72,7 +72,7 @@
             // Diffusion steps encoder
             "step_encoder": {
                 "dim_raw_embedding": 128,
-                "dim_hidden_layer": 512,
+                "dim_hidden_layer": 384,
                 "activation": "SiLU",
                 "num_layer": 2,
                 "max_period": 10000
@@ -81,7 +81,7 @@
             "model_type": "bidilconv",
             // bidilconv, unet2d, TODO: unet1d
             "bidilconv": {
-                "base_channel": 512,
+                "base_channel": 384,
                 "n_res_block": 40,
                 "conv_kernel_size": 3,
                 "dilation_cycle_length": 4,
